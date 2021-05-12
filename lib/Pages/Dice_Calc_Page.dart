@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:dicecalc_diceulator/Functions/Calc_Functions.dart';
 import 'package:dicecalc_diceulator/Data/globals.dart' as globals;
 
-
 class Dice_Calc_Page extends StatefulWidget {
   Dice_Calc_Page({Key key, this.Calc_Inst_Name}) : super(key: key);
 
@@ -16,28 +15,55 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
   String CurEqu = '';
   List<String> OldEqu = [];
   String CurAns = '';
-  List<String> OldAns= [];
+  List<String> OldAns = [];
 
-  Widget PastRolls_Card(){
-    return Container(
-      margin: EdgeInsets.all(5),
-      width: MediaQuery.of(context).size.width * 0.38,
-      height: MediaQuery.of(context).size.height * 0.07,
-      //color: Colors.white,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(CurEqu ,style: TextStyle(fontWeight: FontWeight.bold),),
-          Text(globals.CurRolls,style: TextStyle(fontWeight: FontWeight.bold),),
-          Text("${CurAns}",style: TextStyle(fontWeight: FontWeight.bold),),
-        ],
+  Widget PastRolls_Card(int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          CurEqu = OldEqu[index];
+          CurAns = Equ_Solver(CurEqu).toString();
+          OldAns.insert(0, CurAns);
+          if (OldAns.length > globals.OldListSize) {
+            OldAns.removeLast();
+          }
+          OldEqu.insert(0, CurEqu);
+          if (OldEqu.length > globals.OldListSize) {
+            OldEqu.removeLast();
+          }
+          //print('${OldEqu}');
+          //print('${globals.OldRolls}');
+          //print('${OldAns}');
+        });
+      },
+      child: Container(
+        margin: EdgeInsets.all(5),
+        width: MediaQuery.of(context).size.width * 0.38,
+        height: MediaQuery.of(context).size.height * 0.07,
+        //color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              OldEqu[index],
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              globals.OldRolls[index],
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              "${OldAns[index]}",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         body: SizedBox.expand(
@@ -68,11 +94,11 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                   right: Radius.circular(30.0),
                                 ),
                               ),
-                              child: Column(
-                                //crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: <Widget>[
-                                  PastRolls_Card(),
-                                ],
+                              child: ListView.builder(
+                                itemCount: OldAns.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return PastRolls_Card(index);
+                                },
                               ),
                             ),
                           ),
@@ -83,17 +109,36 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                               //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
                               child: SingleChildScrollView(
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.01),
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01),
                                       alignment: Alignment.bottomRight,
-                                      child: Text(globals.CurRolls, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
+                                      child: Text(
+                                        globals.CurRolls,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                      ),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.02),
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.02),
                                       alignment: Alignment.bottomRight,
-                                      child: Text(CurAns, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),
+                                      child: Text(
+                                        CurAns,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 30),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -111,128 +156,198 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                         //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
                         child: SingleChildScrollView(
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.02),
+                            margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * 0.02),
                             alignment: Alignment.bottomRight,
-                            child: Text(CurEqu, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),
+                            child: Text(
+                              CurEqu,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 30),
+                            ),
                           ),
                         ),
                       ),
                     ),
                     Expanded(
-                      flex:6,
+                      flex: 6,
                       child: Container(
                         decoration: BoxDecoration(
-                         // border: Border(top: BorderSide(color: Colors.black),),
-                        ),
-                       // color: Colors.green,
+                            // border: Border(top: BorderSide(color: Colors.black),),
+                            ),
+                        // color: Colors.green,
                         child: Container(
-                          margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.025),
+                          margin: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.025),
                           child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                Expanded(
-                                  flex: 1,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Calc_Key('7'),
-                                      SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-                                      Calc_Key('8'),
-                                      SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-                                      Calc_Key('9'),
-                                      SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-                                      Calc_Key('C'),
-                                    ],
-                                  ),
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Expanded(
+                                flex: 1,
+                                child: Row(
+                                  children: <Widget>[
+                                    Calc_Key('7'),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02,
+                                    ),
+                                    Calc_Key('8'),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02,
+                                    ),
+                                    Calc_Key('9'),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02,
+                                    ),
+                                    Calc_Key('C'),
+                                  ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.width * 0.02,),
-                                Expanded(
-                                  flex: 1,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Calc_Key('4'),
-                                      SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-                                      Calc_Key('5'),
-                                      SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-                                      Calc_Key('6'),
-                                      SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-                                      Calc_Key('-'),
-                                    ],
-                                  ),
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.02,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Row(
+                                  children: <Widget>[
+                                    Calc_Key('4'),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02,
+                                    ),
+                                    Calc_Key('5'),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02,
+                                    ),
+                                    Calc_Key('6'),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02,
+                                    ),
+                                    Calc_Key('-'),
+                                  ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.width * 0.02,),
-                                Expanded(
-                                  flex: 1,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Calc_Key('1'),
-                                      SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-                                      Calc_Key('2'),
-                                      SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-                                      Calc_Key('3'),
-                                      SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-                                      Calc_Key('+'),
-                                    ],
-                                  ),
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.02,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Row(
+                                  children: <Widget>[
+                                    Calc_Key('1'),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02,
+                                    ),
+                                    Calc_Key('2'),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02,
+                                    ),
+                                    Calc_Key('3'),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02,
+                                    ),
+                                    Calc_Key('+'),
+                                  ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.width * 0.02,),
-                                Expanded(
-                                  flex: 1,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Calc_Key('0'),
-                                      SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-                                      Calc_Key('d'),
-                                      SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-                                      Expanded(
-                                        flex: 2,
-                                        child: ElevatedButton(
-                                          child: Center(
-                                            child: Text('=', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                                            ),
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.02,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Row(
+                                  children: <Widget>[
+                                    Calc_Key('0'),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02,
+                                    ),
+                                    Calc_Key('d'),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02,
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: ElevatedButton(
+                                        child: Center(
+                                          child: Text(
+                                            '=',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20),
                                           ),
-                                          onPressed: (){
-                                            if(CurEqu.endsWith(' ') || CurEqu.endsWith('d'))
-                                            {
-                                              // Do Nothing
-                                            }else
-                                            {
-                                              //                                Sets Current Equation stuff and updates 'old' lists
-                                              setState(() {
-                                                CurAns = Equ_Solver(CurEqu).toString();
-                                                OldAns.insert(0, CurAns);
-                                                if(OldAns.length > globals.OldListSize)
-                                                  {
-                                                    OldAns.removeLast();
-                                                  }
-                                                OldEqu.insert(0, CurEqu);
-                                                if(OldEqu.length > globals.OldListSize)
-                                                {
-                                                  OldEqu.removeLast();
-                                                }
-                                                //print('${OldEqu}');
-                                                //print('${globals.OldRolls}');
-                                                //print('${OldAns}');
-                                              });
-                                            }
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.horizontal(
-                                            left: Radius.circular(50),
-                                            right: Radius.circular(50),
-                                          ),
+                                        ),
+                                        onPressed: () {
+                                          if (CurEqu.endsWith(' ') ||
+                                              CurEqu.endsWith('d')) {
+                                            // Do Nothing
+                                          } else {
+                                            //                                Sets Current Equation stuff and updates 'old' lists
+                                            setState(() {
+                                              CurAns =
+                                                  Equ_Solver(CurEqu).toString();
+                                              OldAns.insert(0, CurAns);
+                                              if (OldAns.length >
+                                                  globals.OldListSize) {
+                                                OldAns.removeLast();
+                                              }
+                                              OldEqu.insert(0, CurEqu);
+                                              if (OldEqu.length >
+                                                  globals.OldListSize) {
+                                                OldEqu.removeLast();
+                                              }
+
+                                              //Setting Instance Info
+                                              globals.Inst_CurEqu[
+                                                  globals.CurrInst] = CurEqu;
+                                              globals.Inst_CurAns[
+                                                  globals.CurrInst] = CurAns;
+                                              globals.Inst_CurRolls[globals
+                                                  .CurrInst] = globals.CurRolls;
+
+                                              globals.Inst_OldRolls[globals
+                                                  .CurrInst] = globals.OldRolls;
+                                              globals.Inst_OldEqu[
+                                                  globals.CurrInst] = OldEqu;
+                                              globals.Inst_OldAns[
+                                                  globals.CurrInst] = OldAns;
+
+                                              //print('${OldEqu}');
+                                              //print('${globals.OldRolls}');
+                                              //print('${OldAns}');
+                                            });
+                                          }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.horizontal(
+                                              left: Radius.circular(50),
+                                              right: Radius.circular(50),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
+                    ),
                   ],
                 ),
               ),
@@ -240,22 +355,22 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    //color: Colors.blue,
-                   // border: Border(left: BorderSide(color: Colors.black),),
-                  ),
+                      //color: Colors.blue,
+                      // border: Border(left: BorderSide(color: Colors.black),),
+                      ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      Inst_Button(),
-                      Inst_Button(),
-                      Inst_Button(),
-                      Inst_Button(),
-                      Inst_Button(),
-                      Inst_Button(),
-                      Inst_Button(),
-                      Inst_Button(),
-                      Inst_Button(),
-                      Inst_Button(),
+                      Inst_Button(0),
+                      Inst_Button(1),
+                      Inst_Button(2),
+                      Inst_Button(3),
+                      Inst_Button(4),
+                      Inst_Button(5),
+                      Inst_Button(6),
+                      Inst_Button(7),
+                      Inst_Button(8),
+                      Inst_Button(9),
                     ],
                   ),
                 ),
@@ -268,15 +383,28 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
   }
 
   //Instance Button
-  Widget Inst_Button(){
+  Widget Inst_Button(int place) {
     return Expanded(
       flex: 20,
       child: Container(
         child: SizedBox.expand(
           child: GestureDetector(
+            onTap: (){
+              setState(() {
+                // Set Cur and Old variables to Inst_Curr and Inst_Old Variables based on 'place'
+                CurEqu = globals.Inst_CurEqu[place];
+                CurAns = globals.Inst_CurAns[place];
+                globals.CurRolls = globals.Inst_CurRolls[place];
+
+                globals.OldRolls = globals.Inst_OldRolls[place];
+                OldEqu = globals.Inst_OldEqu[place];
+                OldAns = globals.Inst_OldAns[place];
+                globals.CurrInst = place;
+              });
+            },
             child: FractionallySizedBox(
-                widthFactor: .9,
-                heightFactor: .8,
+              widthFactor: .9,
+              heightFactor: .8,
               alignment: Alignment.centerRight,
               child: Container(
                 decoration: BoxDecoration(
@@ -285,16 +413,22 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                     left: Radius.circular(50.0),
                   ),
                 ),
+                child: Center(
+                  child: Text(
+                    place.toString(),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
+              ),
             ),
           ),
         ),
-        ),
+      ),
     );
   }
 
   //  Calculator Keys
-  Widget Calc_Key(String Action){
+  Widget Calc_Key(String Action) {
     return Expanded(
       flex: 1,
       child: ElevatedButton(
@@ -304,68 +438,63 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
           //side: BorderSide(color: Colors.black, width: 1),
         ),
         child: Center(
-          child: Text(Action, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          child: Text(
+            Action,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
-        onPressed: (){
+        onPressed: () {
           //                         Clear
-          if(Action == 'C')
-          {
+          if (Action == 'C') {
             setState(() {
               CurEqu = '';
               CurAns = '';
               globals.CurRolls = '';
+              globals.Inst_CurAns[globals.CurrInst] = '';
+              globals.Inst_CurEqu[globals.CurrInst] = '';
+              globals.Inst_CurRolls[globals.CurrInst] = '';
             });
             //                     Process Current Equation
-          }else if(Action == '='){
-            if(CurEqu.endsWith(' ') || CurEqu.endsWith('d'))
-            {
+          } else if (Action == '=') {
+            if (CurEqu.endsWith(' ') || CurEqu.endsWith('d')) {
               // Do Nothing
-            }else
-            {
+            } else {
               setState(() {
                 CurAns = Equ_Solver(CurEqu).toString();
               });
             }
 
             //                         Enter pressed button into Current Equation String 'CurEqu'
-          }else
-          {
-            setState((){
-              if(Action == '+')
-              {
-                if(CurEqu.endsWith(' ') || CurEqu.endsWith('d'))
-                {
+          } else {
+            setState(() {
+              if (Action == '+') {
+                if (CurEqu.endsWith(' ') || CurEqu.endsWith('d')) {
                   //DO Nothing
-                }else{
+                } else {
                   CurEqu = CurEqu + ' + ';
                 }
-              }else if(Action == '-')
-              {
-                if(CurEqu.endsWith(' ') || CurEqu.endsWith('d'))
-                {
+              } else if (Action == '-') {
+                if (CurEqu.endsWith(' ') || CurEqu.endsWith('d')) {
                   //DO Nothing
-                }else{
+                } else {
                   CurEqu = CurEqu + ' - ';
                 }
-              }else if(Action == 'd' && (CurEqu.endsWith('d') || CurEqu.split(' ').last.contains('d')))
-              {
+              } else if (Action == 'd' &&
+                  (CurEqu.endsWith('d') ||
+                      CurEqu.split(' ').last.contains('d'))) {
                 //Do Nothing
-              }else
-              {
-                if(CurEqu.split(' ').last.split('d').last.length > 3 && Action != 'd')
-                {
+              } else {
+                if (CurEqu.split(' ').last.split('d').last.length > 3 &&
+                    Action != 'd') {
                   // DO Nothing
-                }else{
-                  if(CurEqu.endsWith('d') && Action == '0')
-                  {
+                } else {
+                  if (CurEqu.endsWith('d') && Action == '0') {
                     // DO Nothing
-                  }else{
+                  } else {
                     CurEqu = CurEqu + Action;
                   }
                 }
               }
-
             });
           }
           print(CurEqu);
@@ -373,5 +502,4 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
       ),
     );
   }
-
 }
