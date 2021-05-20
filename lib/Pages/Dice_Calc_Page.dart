@@ -3,9 +3,7 @@ import 'package:dicecalc_diceulator/Functions/Calc_Functions.dart';
 import 'package:dicecalc_diceulator/Data/globals.dart' as globals;
 
 class Dice_Calc_Page extends StatefulWidget {
-  Dice_Calc_Page({Key key, this.Calc_Inst_Name}) : super(key: key);
-
-  final String Calc_Inst_Name;
+  Dice_Calc_Page({Key key}) : super(key: key);
 
   @override
   _Dice_Calc_PageState createState() => _Dice_Calc_PageState();
@@ -38,8 +36,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
       },
       child: Container(
         margin: EdgeInsets.all(5),
-        width: MediaQuery.of(context).size.width * 0.38,
-        height: MediaQuery.of(context).size.height * 0.07,
+
         //color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,8 +286,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                           ),
                                         ),
                                         onPressed: () {
-                                          if (CurEqu.endsWith(' ') ||
-                                              CurEqu.endsWith('d')) {
+                                          if (CurEqu.endsWith(' ') || CurEqu.endsWith('d') || CurEqu.isEmpty) {
                                             // Do Nothing
                                           } else {
                                             //                                Sets Current Equation stuff and updates 'old' lists
@@ -389,7 +385,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
       child: Container(
         child: SizedBox.expand(
           child: GestureDetector(
-            onTap: (){
+            onTap: () {
               setState(() {
                 // Set Cur and Old variables to Inst_Curr and Inst_Old Variables based on 'place'
                 CurEqu = globals.Inst_CurEqu[place];
