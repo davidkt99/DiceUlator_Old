@@ -15,55 +15,12 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
   String CurAns = '';
   List<String> OldAns = [];
 
-  Widget PastRolls_Card(int index) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          CurEqu = OldEqu[index];
-          CurAns = Equ_Solver(CurEqu).toString();
-          OldAns.insert(0, CurAns);
-          if (OldAns.length > globals.OldListSize) {
-            OldAns.removeLast();
-          }
-          OldEqu.insert(0, CurEqu);
-          if (OldEqu.length > globals.OldListSize) {
-            OldEqu.removeLast();
-          }
-          //print('${OldEqu}');
-          //print('${globals.OldRolls}');
-          //print('${OldAns}');
-        });
-      },
-      child: Container(
-        margin: EdgeInsets.all(5),
-
-        //color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              OldEqu[index],
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(
-              globals.OldRolls[index],
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(
-              "${OldAns[index]}",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SizedBox.expand(
+    return Scaffold(
+      body: SafeArea(
+        child: SizedBox.expand(
           child: Row(
             children: [
               Container(
@@ -104,30 +61,40 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                             child: Container(
                               alignment: Alignment.bottomRight,
                               //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.01),
-                                      alignment: Alignment.bottomRight,
-                                      child: Text(
-                                        globals.CurRolls,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15),
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    flex: 2,
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.01),
+                                            alignment: Alignment.bottomRight,
+                                            child: Text(
+                                              globals.CurRolls,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Container(
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
                                       margin: EdgeInsets.symmetric(
                                           horizontal: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
+                                              .size
+                                              .width *
                                               0.02),
                                       alignment: Alignment.bottomRight,
                                       child: Text(
@@ -137,8 +104,8 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                             fontSize: 30),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -423,7 +390,53 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
     );
   }
 
-  //  Calculator Keys
+//                                                  //PastRolls Card
+  Widget PastRolls_Card(int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          CurEqu = OldEqu[index];
+          CurAns = Equ_Solver(CurEqu).toString();
+          OldAns.insert(0, CurAns);
+          if (OldAns.length > globals.OldListSize) {
+            OldAns.removeLast();
+          }
+          OldEqu.insert(0, CurEqu);
+          if (OldEqu.length > globals.OldListSize) {
+            OldEqu.removeLast();
+          }
+          //print('${OldEqu}');
+          //print('${globals.OldRolls}');
+          //print('${OldAns}');
+        });
+      },
+      child: Container(
+        margin: EdgeInsets.all(5),
+
+        //color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              OldEqu[index],
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              globals.OldRolls[index],
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              "${OldAns[index]}",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+
+  //                                                      Calculator Keys
   Widget Calc_Key(String Action) {
     return Expanded(
       flex: 1,
