@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dicecalc_diceulator/Functions/Calc_Functions.dart';
 import 'package:dicecalc_diceulator/Data/globals.dart' as globals;
+import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 
 class Dice_Calc_Page extends StatefulWidget {
   Dice_Calc_Page({Key key}) : super(key: key);
@@ -15,6 +16,8 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
   String CurAns = '';
   List<String> OldAns = [];
 
+  final _controller1 = ScrollController();
+  final _controller2 = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +48,24 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                               decoration: BoxDecoration(
                                 color: Colors.blue,
                                 borderRadius: BorderRadius.horizontal(
-                                  right: Radius.circular(30.0),
+                                  right: Radius.circular(20.0),
                                 ),
                               ),
-                              child: ListView.builder(
-                                itemCount: OldAns.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return PastRolls_Card(index);
-                                },
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                  top: 4,
+                                  bottom: 4,
+                                ),
+                                child: FadingEdgeScrollView.fromScrollView(
+                                  child: ListView.builder(
+                                    controller: _controller1,
+                                    clipBehavior: Clip.antiAlias,
+                                    itemCount: OldAns.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return PastRolls_Card(index);
+                                    },
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -65,29 +78,32 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.01),
-                                            alignment: Alignment.bottomRight,
-                                            child: Text(
-                                              globals.CurRolls,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15),
-                                            ),
+                                    child: FadingEdgeScrollView.fromSingleChildScrollView(
+                                        child: SingleChildScrollView(
+                                          controller: _controller2,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.01),
+                                                alignment: Alignment.bottomRight,
+                                                child: Text(
+                                                  globals.CurRolls.replaceAll('+', ' + '),
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 15),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
+                                        ),
                                       ),
                                     ),
-                                  ),
                                   Expanded(
                                     flex: 1,
                                     child: Container(
@@ -347,6 +363,17 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
 
   //Instance Button
   Widget Inst_Button(int place) {
+    var _widthFactor = 0.9;
+    var _heightFactor = 0.8;
+    Color selColor = Colors.blue;
+
+    if(place == globals.CurrInst)
+      {
+        _widthFactor = 1;
+        _heightFactor = 0.9;
+        selColor = Colors.red[900];
+      }
+
     return Expanded(
       flex: 20,
       child: Container(
@@ -362,15 +389,30 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                 globals.OldRolls = globals.Inst_OldRolls[place];
                 OldEqu = globals.Inst_OldEqu[place];
                 OldAns = globals.Inst_OldAns[place];
+
+
+                _widthFactor = 1;
+                _heightFactor = 0.9;
+                selColor = Colors.red[900];
                 globals.CurrInst = place;
               });
             },
             child: FractionallySizedBox(
-              widthFactor: .9,
-              heightFactor: .8,
+              widthFactor: _widthFactor,
+              heightFactor: _heightFactor,
               alignment: Alignment.centerRight,
-              child: Container(
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 300),
                 decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                    colors: [
+                      Colors.blue,
+                      Colors.blue,
+                      selColor,
+                    ],
+                  ),
                   color: Colors.blue,
                   borderRadius: BorderRadius.horizontal(
                     left: Radius.circular(50.0),
@@ -422,7 +464,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Text(
-              globals.OldRolls[index],
+              globals.OldRolls[index].replaceAll('+', ' + '),
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Text(
@@ -438,13 +480,16 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
 
   //                                                      Calculator Keys
   Widget Calc_Key(String Action) {
+
+
     return Expanded(
       flex: 1,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          primary: Colors.blue,
           shape: CircleBorder(),
           //elevation: 20
-          //side: BorderSide(color: Colors.black, width: 1),
+          //side: BorderSide(color: pressBorderFlash, width: 1),
         ),
         child: Center(
           child: Text(
