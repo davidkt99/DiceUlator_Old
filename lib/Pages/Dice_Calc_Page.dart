@@ -46,7 +46,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                             child: Container(
                               alignment: Alignment.centerLeft,
                               decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: globals.Primary,
                                 borderRadius: BorderRadius.horizontal(
                                   right: Radius.circular(20.0),
                                 ),
@@ -59,7 +59,6 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                 child: FadingEdgeScrollView.fromScrollView(
                                   child: ListView.builder(
                                     controller: _controller1,
-                                    clipBehavior: Clip.antiAlias,
                                     itemCount: OldAns.length,
                                     itemBuilder: (BuildContext context, int index) {
                                       return PastRolls_Card(index);
@@ -309,6 +308,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                           }
                                         },
                                         style: ElevatedButton.styleFrom(
+                                          primary: globals.Primary,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.horizontal(
@@ -334,7 +334,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                      //color: Colors.blue,
+                      //color: globals.Primary,
                       // border: Border(left: BorderSide(color: Colors.black),),
                       ),
                   child: Column(
@@ -365,13 +365,13 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
   Widget Inst_Button(int place) {
     var _widthFactor = 0.9;
     var _heightFactor = 0.8;
-    Color selColor = Colors.blue;
+    Color selColor = globals.Primary;
 
     if(place == globals.CurrInst)
       {
-        _widthFactor = 1;
-        _heightFactor = 0.9;
-        selColor = Colors.red[900];
+        //_widthFactor = 1;
+        //_heightFactor = 0.9;
+        selColor = globals.Secondary;
       }
 
     return Expanded(
@@ -391,9 +391,9 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                 OldAns = globals.Inst_OldAns[place];
 
 
-                _widthFactor = 1;
-                _heightFactor = 0.9;
-                selColor = Colors.red[900];
+                //_widthFactor = 1;
+                //_heightFactor = 0.9;
+                selColor = globals.Secondary;
                 globals.CurrInst = place;
               });
             },
@@ -408,12 +408,12 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                       begin: Alignment.bottomLeft,
                       end: Alignment.topRight,
                     colors: [
-                      Colors.blue,
-                      Colors.blue,
+                      globals.Primary,
+                      globals.Primary,
                       selColor,
                     ],
                   ),
-                  color: Colors.blue,
+                  color: globals.Primary,
                   borderRadius: BorderRadius.horizontal(
                     left: Radius.circular(50.0),
                   ),
@@ -486,7 +486,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
       flex: 1,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: Colors.blue,
+          primary: globals.Primary,
           shape: CircleBorder(),
           //elevation: 20
           //side: BorderSide(color: pressBorderFlash, width: 1),
