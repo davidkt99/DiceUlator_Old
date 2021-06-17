@@ -24,3 +24,17 @@ Color Accent = Colors.green;
 Color Secondary = Colors.white;
 Color BackGround = Colors.black26;
 Color TextColor = Colors.white;
+
+
+
+//  Shadows used
+/*
+boxShadow: [
+BoxShadow(
+color: globals.BackGround,
+blurRadius: 4.0,
+offset:
+Offset(2.0, 2.0), // shadow direction: bottom right
+),
+],
+ */

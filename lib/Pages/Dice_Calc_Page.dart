@@ -50,6 +50,14 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                 borderRadius: BorderRadius.horizontal(
                                   right: Radius.circular(20.0),
                                 ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: globals.BackGround,
+                                    blurRadius: 4.0,
+                                    offset:
+                                    Offset(2.0, 2.0), // shadow direction: bottom right
+                                  ),
+                                ],
                               ),
                               child: Container(
                                 padding: EdgeInsets.only(
@@ -385,7 +393,6 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                 CurEqu = globals.Inst_CurEqu[place];
                 CurAns = globals.Inst_CurAns[place];
                 globals.CurRolls = globals.Inst_CurRolls[place];
-
                 globals.OldRolls = globals.Inst_OldRolls[place];
                 OldEqu = globals.Inst_OldEqu[place];
                 OldAns = globals.Inst_OldAns[place];
@@ -405,14 +412,22 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                 duration: Duration(milliseconds: 300),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topRight,
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
                     colors: [
                       globals.Primary,
                       globals.Primary,
                       selColor,
                     ],
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: globals.BackGround,
+                      blurRadius: 4.0,
+                      offset:
+                      Offset(2.0, 2.0), // shadow direction: bottom right
+                    ),
+                  ],
                   color: globals.Primary,
                   borderRadius: BorderRadius.horizontal(
                     left: Radius.circular(50.0),
@@ -480,24 +495,37 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
 
   //                                                      Calculator Keys
   Widget Calc_Key(String Action) {
+    Color BorderColor = Colors.green;//globals.Primary;
 
 
     return Expanded(
       flex: 1,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: globals.Primary,
-          shape: CircleBorder(),
-          //elevation: 20
-          //side: BorderSide(color: pressBorderFlash, width: 1),
-        ),
-        child: Center(
-          child: Text(
-            Action,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      child: GestureDetector(
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 1000),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: globals.Primary,
+            boxShadow: [
+              BoxShadow(
+                color: globals.BackGround,
+                blurRadius: 4.0,
+                offset:
+                Offset(2.0, 2.0), // shadow direction: bottom right
+              ),
+            ],
+            //border: Border.all(color: BorderColor, width: 2),
+          ),
+          child: Center(
+            child: Text(
+              Action,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
           ),
         ),
-        onPressed: () {
+        onTap: (){
+          //Border flash on press
+          BorderColor = Colors.red;//globals.Secondary;
           //                         Clear
           if (Action == 'C') {
             setState(() {
@@ -553,6 +581,12 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
           }
           print(CurEqu);
         },
+        /*onTapUp: (TapUpDetails tapUpDetails){
+          BorderColor = globals.Primary;
+          print("hello");
+        },
+
+         */
       ),
     );
   }
