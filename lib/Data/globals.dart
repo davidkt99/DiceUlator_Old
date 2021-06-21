@@ -24,6 +24,7 @@ Color Accent = Colors.green;
 Color Secondary = Colors.white;
 Color BackGround = Colors.black54;
 Color TextColor = Colors.white;
+Color ShadowColor = Colors.purple[600];
 
 
 

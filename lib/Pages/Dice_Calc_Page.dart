@@ -58,8 +58,8 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                   ),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: globals.BackGround,
-                                      blurRadius: 4.0,
+                                      color: globals.ShadowColor,
+                                      blurRadius: 2.0,
                                       offset:
                                       Offset(2.0, 2.0), // shadow direction: bottom right
                                     ),
@@ -272,16 +272,37 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                       ),
                                       Expanded(
                                         flex: 2,
-                                        child: ElevatedButton(
-                                          child: Center(
-                                            child: Text(
-                                              '=',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
+                                        child: GestureDetector(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.rectangle,
+                                              borderRadius: BorderRadius.horizontal(
+                                                left: Radius.circular(50),
+                                                right: Radius.circular(50),
+                                              ),
+                                              color: globals.Primary,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: globals.ShadowColor,
+                                                  blurRadius: 2.0,
+                                                  offset:
+                                                  Offset(2.0, 2.0), // shadow direction: bottom right
+                                                ),
+                                              ],
+                                              //border: Border.all(color: BorderColor, width: 2),
+                                            ),
+
+                                            child: Center(
+                                              child: Text(
+                                                '=',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
                                             ),
                                           ),
-                                          onPressed: () {
+                                          onTap: (){
+
                                             if (CurEqu.endsWith(' ') || CurEqu.endsWith('d') || CurEqu.isEmpty) {
                                               // Do Nothing
                                             } else {
@@ -302,18 +323,18 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
 
                                                 //Setting Instance Info
                                                 globals.Inst_CurEqu[
-                                                    globals.CurrInst] = CurEqu;
+                                                globals.CurrInst] = CurEqu;
                                                 globals.Inst_CurAns[
-                                                    globals.CurrInst] = CurAns;
+                                                globals.CurrInst] = CurAns;
                                                 globals.Inst_CurRolls[globals
                                                     .CurrInst] = globals.CurRolls;
 
                                                 globals.Inst_OldRolls[globals
                                                     .CurrInst] = globals.OldRolls;
                                                 globals.Inst_OldEqu[
-                                                    globals.CurrInst] = OldEqu;
+                                                globals.CurrInst] = OldEqu;
                                                 globals.Inst_OldAns[
-                                                    globals.CurrInst] = OldAns;
+                                                globals.CurrInst] = OldAns;
 
                                                 //print('${OldEqu}');
                                                 //print('${globals.OldRolls}');
@@ -321,16 +342,6 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                               });
                                             }
                                           },
-                                          style: ElevatedButton.styleFrom(
-                                            primary: globals.Primary,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.horizontal(
-                                                left: Radius.circular(50),
-                                                right: Radius.circular(50),
-                                              ),
-                                            ),
-                                          ),
                                         ),
                                       ),
                                     ],
@@ -354,16 +365,16 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        Inst_Button(0),
-                        Inst_Button(1),
-                        Inst_Button(2),
-                        Inst_Button(3),
-                        Inst_Button(4),
-                        Inst_Button(5),
-                        Inst_Button(6),
-                        Inst_Button(7),
-                        Inst_Button(8),
-                        Inst_Button(9),
+                        Inst_Button(0, '1'),
+                        Inst_Button(1, '2'),
+                        Inst_Button(2, '3'),
+                        Inst_Button(3, '4'),
+                        Inst_Button(4, '5'),
+                        Inst_Button(5, '6'),
+                        Inst_Button(6, '7'),
+                        Inst_Button(7, '8'),
+                        Inst_Button(8, '9'),
+                        Inst_Button(9, '10'),
                       ],
                     ),
                   ),
@@ -376,8 +387,8 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
     );
   }
 
-  //Instance Button
-  Widget Inst_Button(int place) {
+  //Instance Button                 String for display limited to 5 char
+  Widget Inst_Button(int place, var display) {
     var _widthFactor = 0.9;
     var _heightFactor = 0.8;
     Color selColor = globals.Primary;
@@ -429,8 +440,8 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: globals.BackGround,
-                      blurRadius: 4.0,
+                      color: globals.ShadowColor,
+                      blurRadius: 2.0,
                       offset:
                       Offset(2.0, 2.0), // shadow direction: bottom right
                     ),
@@ -442,7 +453,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                 ),
                 child: Center(
                   child: Text(
-                    place.toString(),
+                    display.toString(),
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -515,8 +526,8 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
             color: globals.Primary,
             boxShadow: [
               BoxShadow(
-                color: globals.BackGround,
-                blurRadius: 4.0,
+                color: globals.ShadowColor,
+                blurRadius: 2.0,
                 offset:
                 Offset(2.0, 2.0), // shadow direction: bottom right
               ),
