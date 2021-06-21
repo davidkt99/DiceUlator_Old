@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dicecalc_diceulator/Functions/Calc_Functions.dart';
 import 'package:dicecalc_diceulator/Data/globals.dart' as globals;
@@ -22,347 +23,353 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: globals.BackGround,
       body: SafeArea(
         child: SizedBox.expand(
-          child: Row(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.87,
-                height: MediaQuery.of(context).size.height * 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 2,
-                      child: Container(),
-                    ),
-                    //                  Current Answer with the rolls made
-                    Expanded(
-                      flex: 2,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              decoration: BoxDecoration(
-                                color: globals.Primary,
-                                borderRadius: BorderRadius.horizontal(
-                                  right: Radius.circular(20.0),
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: globals.BackGround,
-                                    blurRadius: 4.0,
-                                    offset:
-                                    Offset(2.0, 2.0), // shadow direction: bottom right
-                                  ),
-                                ],
-                              ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: globals.BackGround,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.87,
+                  height: MediaQuery.of(context).size.height * 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: Container(),
+                      ),
+                      //                  Current Answer with the rolls made
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
                               child: Container(
-                                padding: EdgeInsets.only(
-                                  top: 4,
-                                  bottom: 4,
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                  color: globals.Primary,
+                                  borderRadius: BorderRadius.horizontal(
+                                    right: Radius.circular(20.0),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: globals.BackGround,
+                                      blurRadius: 4.0,
+                                      offset:
+                                      Offset(2.0, 2.0), // shadow direction: bottom right
+                                    ),
+                                  ],
                                 ),
-                                child: FadingEdgeScrollView.fromScrollView(
-                                  child: ListView.builder(
-                                    controller: _controller1,
-                                    itemCount: OldAns.length,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return PastRolls_Card(index);
-                                    },
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                    top: 4,
+                                    bottom: 4,
+                                  ),
+                                  child: FadingEdgeScrollView.fromScrollView(
+                                    child: ListView.builder(
+                                      controller: _controller1,
+                                      itemCount: OldAns.length,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        return PastRolls_Card(index);
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.bottomRight,
-                              //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: FadingEdgeScrollView.fromSingleChildScrollView(
-                                        child: SingleChildScrollView(
-                                          controller: _controller2,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.01),
-                                                alignment: Alignment.bottomRight,
-                                                child: Text(
-                                                  globals.CurRolls.replaceAll('+', ' + '),
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 15),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: MediaQuery.of(context)
-                                              .size
-                                              .width *
-                                              0.02),
-                                      alignment: Alignment.bottomRight,
-                                      child: Text(
-                                        CurAns,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 30),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    //                    Current Equation
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        alignment: Alignment.centerRight,
-                        //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                        child: SingleChildScrollView(
-                          child: Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.width * 0.02),
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              CurEqu,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 30),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 6,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            // border: Border(top: BorderSide(color: Colors.black),),
-                            ),
-                        // color: Colors.green,
-                        child: Container(
-                          margin: EdgeInsets.all(
-                              MediaQuery.of(context).size.width * 0.025),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Expanded(
-                                flex: 1,
-                                child: Row(
-                                  children: <Widget>[
-                                    Calc_Key('7'),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02,
-                                    ),
-                                    Calc_Key('8'),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02,
-                                    ),
-                                    Calc_Key('9'),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02,
-                                    ),
-                                    Calc_Key('C'),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.02,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Row(
-                                  children: <Widget>[
-                                    Calc_Key('4'),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02,
-                                    ),
-                                    Calc_Key('5'),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02,
-                                    ),
-                                    Calc_Key('6'),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02,
-                                    ),
-                                    Calc_Key('-'),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.02,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Row(
-                                  children: <Widget>[
-                                    Calc_Key('1'),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02,
-                                    ),
-                                    Calc_Key('2'),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02,
-                                    ),
-                                    Calc_Key('3'),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02,
-                                    ),
-                                    Calc_Key('+'),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.02,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Row(
-                                  children: <Widget>[
-                                    Calc_Key('0'),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02,
-                                    ),
-                                    Calc_Key('d'),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02,
-                                    ),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                alignment: Alignment.bottomRight,
+                                //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                                child: Column(
+                                  children: [
                                     Expanded(
                                       flex: 2,
-                                      child: ElevatedButton(
-                                        child: Center(
-                                          child: Text(
-                                            '=',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          if (CurEqu.endsWith(' ') || CurEqu.endsWith('d') || CurEqu.isEmpty) {
-                                            // Do Nothing
-                                          } else {
-                                            //                                Sets Current Equation stuff and updates 'old' lists
-                                            setState(() {
-                                              CurAns =
-                                                  Equ_Solver(CurEqu).toString();
-                                              OldAns.insert(0, CurAns);
-                                              if (OldAns.length >
-                                                  globals.OldListSize) {
-                                                OldAns.removeLast();
-                                              }
-                                              OldEqu.insert(0, CurEqu);
-                                              if (OldEqu.length >
-                                                  globals.OldListSize) {
-                                                OldEqu.removeLast();
-                                              }
-
-                                              //Setting Instance Info
-                                              globals.Inst_CurEqu[
-                                                  globals.CurrInst] = CurEqu;
-                                              globals.Inst_CurAns[
-                                                  globals.CurrInst] = CurAns;
-                                              globals.Inst_CurRolls[globals
-                                                  .CurrInst] = globals.CurRolls;
-
-                                              globals.Inst_OldRolls[globals
-                                                  .CurrInst] = globals.OldRolls;
-                                              globals.Inst_OldEqu[
-                                                  globals.CurrInst] = OldEqu;
-                                              globals.Inst_OldAns[
-                                                  globals.CurrInst] = OldAns;
-
-                                              //print('${OldEqu}');
-                                              //print('${globals.OldRolls}');
-                                              //print('${OldAns}');
-                                            });
-                                          }
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          primary: globals.Primary,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.horizontal(
-                                              left: Radius.circular(50),
-                                              right: Radius.circular(50),
+                                      child: FadingEdgeScrollView.fromSingleChildScrollView(
+                                          child: SingleChildScrollView(
+                                            controller: _controller2,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.stretch,
+                                              children: [
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.01),
+                                                  alignment: Alignment.bottomRight,
+                                                  child: Text(
+                                                    globals.CurRolls.replaceAll('+', ' + '),
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
                                       ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.02),
+                                        alignment: Alignment.bottomRight,
+                                        child: Text(
+                                          CurAns,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 30),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      //                    Current Equation
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          //decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+                          child: SingleChildScrollView(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.02),
+                              alignment: Alignment.bottomRight,
+                              child: Text(
+                                CurEqu,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 30),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              //TODO: Instances of Calc info
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                      //color: globals.Primary,
-                      // border: Border(left: BorderSide(color: Colors.black),),
+                      Expanded(
+                        flex: 6,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              // border: Border(top: BorderSide(color: Colors.black),),
+                              ),
+                          // color: Colors.green,
+                          child: Container(
+                            margin: EdgeInsets.all(
+                                MediaQuery.of(context).size.width * 0.025),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 1,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Calc_Key('7'),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width *
+                                            0.02,
+                                      ),
+                                      Calc_Key('8'),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width *
+                                            0.02,
+                                      ),
+                                      Calc_Key('9'),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width *
+                                            0.02,
+                                      ),
+                                      Calc_Key('C'),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.02,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Calc_Key('4'),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width *
+                                            0.02,
+                                      ),
+                                      Calc_Key('5'),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width *
+                                            0.02,
+                                      ),
+                                      Calc_Key('6'),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width *
+                                            0.02,
+                                      ),
+                                      Calc_Key('-'),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.02,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Calc_Key('1'),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width *
+                                            0.02,
+                                      ),
+                                      Calc_Key('2'),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width *
+                                            0.02,
+                                      ),
+                                      Calc_Key('3'),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width *
+                                            0.02,
+                                      ),
+                                      Calc_Key('+'),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.02,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Calc_Key('0'),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width *
+                                            0.02,
+                                      ),
+                                      Calc_Key('d'),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width *
+                                            0.02,
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: ElevatedButton(
+                                          child: Center(
+                                            child: Text(
+                                              '=',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            if (CurEqu.endsWith(' ') || CurEqu.endsWith('d') || CurEqu.isEmpty) {
+                                              // Do Nothing
+                                            } else {
+                                              //                                Sets Current Equation stuff and updates 'old' lists
+                                              setState(() {
+                                                CurAns =
+                                                    Equ_Solver(CurEqu).toString();
+                                                OldAns.insert(0, CurAns);
+                                                if (OldAns.length >
+                                                    globals.OldListSize) {
+                                                  OldAns.removeLast();
+                                                }
+                                                OldEqu.insert(0, CurEqu);
+                                                if (OldEqu.length >
+                                                    globals.OldListSize) {
+                                                  OldEqu.removeLast();
+                                                }
+
+                                                //Setting Instance Info
+                                                globals.Inst_CurEqu[
+                                                    globals.CurrInst] = CurEqu;
+                                                globals.Inst_CurAns[
+                                                    globals.CurrInst] = CurAns;
+                                                globals.Inst_CurRolls[globals
+                                                    .CurrInst] = globals.CurRolls;
+
+                                                globals.Inst_OldRolls[globals
+                                                    .CurrInst] = globals.OldRolls;
+                                                globals.Inst_OldEqu[
+                                                    globals.CurrInst] = OldEqu;
+                                                globals.Inst_OldAns[
+                                                    globals.CurrInst] = OldAns;
+
+                                                //print('${OldEqu}');
+                                                //print('${globals.OldRolls}');
+                                                //print('${OldAns}');
+                                              });
+                                            }
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            primary: globals.Primary,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.horizontal(
+                                                left: Radius.circular(50),
+                                                right: Radius.circular(50),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Inst_Button(0),
-                      Inst_Button(1),
-                      Inst_Button(2),
-                      Inst_Button(3),
-                      Inst_Button(4),
-                      Inst_Button(5),
-                      Inst_Button(6),
-                      Inst_Button(7),
-                      Inst_Button(8),
-                      Inst_Button(9),
                     ],
                   ),
                 ),
-              ),
-            ],
+                //TODO: Instances of Calc info
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        //color: globals.Primary,
+                        // border: Border(left: BorderSide(color: Colors.black),),
+                        ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Inst_Button(0),
+                        Inst_Button(1),
+                        Inst_Button(2),
+                        Inst_Button(3),
+                        Inst_Button(4),
+                        Inst_Button(5),
+                        Inst_Button(6),
+                        Inst_Button(7),
+                        Inst_Button(8),
+                        Inst_Button(9),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -518,14 +525,12 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
           ),
           child: Center(
             child: Text(
-              Action,
+              Action == 'd' ?  'D' : Action,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           ),
         ),
         onTap: (){
-          //Border flash on press
-          BorderColor = Colors.red;//globals.Secondary;
           //                         Clear
           if (Action == 'C') {
             setState(() {
@@ -579,6 +584,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
               }
             });
           }
+          globals.Inst_CurEqu[globals.CurrInst] = CurEqu;
           print(CurEqu);
         },
         /*onTapUp: (TapUpDetails tapUpDetails){

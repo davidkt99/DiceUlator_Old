@@ -77,7 +77,7 @@ int Equ_Solver(String Equ){
 int Dice_Randomizer(var y){
   var rand = new Random();
   var dice_roll = 0;
-  dice_roll = rand.nextInt(100) % y + 1;
+  dice_roll = rand.nextInt(10000) % y + 1;
   //print(dice_roll);
   return dice_roll;
 }

@@ -22,7 +22,7 @@ List<String> Inst_CurRolls = ['','','','','','','','','','',];
 Color Primary = Colors.purple[600];
 Color Accent = Colors.green;
 Color Secondary = Colors.white;
-Color BackGround = Colors.black26;
+Color BackGround = Colors.black54;
 Color TextColor = Colors.white;
 
 
