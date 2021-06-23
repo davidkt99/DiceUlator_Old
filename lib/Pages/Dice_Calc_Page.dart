@@ -106,7 +106,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                                           0.01),
                                                   alignment: Alignment.bottomRight,
                                                   child: Text(
-                                                    globals.CurRolls.replaceAll('+', ' + '),
+                                                    globals.CurRolls.replaceAll('+', ' + ').replaceAll('-', ' - '),
                                                     style: TextStyle(
                                                         fontWeight: FontWeight.bold,
                                                         fontSize: 15),
@@ -119,19 +119,26 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                       ),
                                     Expanded(
                                       flex: 1,
-                                      child: Container(
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                                0.02),
-                                        alignment: Alignment.bottomRight,
-                                        child: Text(
-                                          CurAns,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 30),
+                                      child: GestureDetector(
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                                  0.02),
+                                          alignment: Alignment.bottomRight,
+                                          child: Text(
+                                            CurAns,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 30),
+                                          ),
                                         ),
+                                        onTap: (){
+                                          setState(() {
+                                            CurEqu += CurAns;
+                                          });
+                                        },
                                       ),
                                     ),
                                   ],
@@ -497,7 +504,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Text(
-              globals.OldRolls[index].replaceAll('+', ' + '),
+              globals.OldRolls[index].replaceAll('+', ' + ').replaceAll('-', ' - '),
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Text(
@@ -545,12 +552,18 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
           //                         Clear
           if (Action == 'C') {
             setState(() {
+              globals.clearCount++;
               CurEqu = '';
-              CurAns = '';
-              globals.CurRolls = '';
-              globals.Inst_CurAns[globals.CurrInst] = '';
               globals.Inst_CurEqu[globals.CurrInst] = '';
-              globals.Inst_CurRolls[globals.CurrInst] = '';
+              if(globals.clearCount > 1)
+                {
+                  CurAns = '';
+                  globals.CurRolls = '';
+                  globals.Inst_CurAns[globals.CurrInst] = '';
+                  globals.Inst_CurRolls[globals.CurrInst] = '';
+                  globals.clearCount = 0;
+                }
+              //print("ClearCount = ${globals.clearCount}");
             });
             //                     Process Current Equation
           } else if (Action == '=') {
@@ -566,13 +579,13 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
           } else {
             setState(() {
               if (Action == '+') {
-                if (CurEqu.endsWith(' ') || CurEqu.endsWith('d')) {
+                if (CurEqu.endsWith(' ') || CurEqu.endsWith('d') || CurEqu.isEmpty) {
                   //DO Nothing
                 } else {
                   CurEqu = CurEqu + ' + ';
                 }
               } else if (Action == '-') {
-                if (CurEqu.endsWith(' ') || CurEqu.endsWith('d')) {
+                if (CurEqu.endsWith(' ') || CurEqu.endsWith('d') || CurEqu.isEmpty) {
                   //DO Nothing
                 } else {
                   CurEqu = CurEqu + ' - ';
@@ -595,6 +608,11 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
               }
             });
           }
+
+          if(Action != 'C')
+            {
+              globals.clearCount = 0;
+            }
           globals.Inst_CurEqu[globals.CurrInst] = CurEqu;
           print(CurEqu);
         },

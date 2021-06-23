@@ -27,6 +27,8 @@ Color TextColor = Colors.white;
 Color ShadowColor = Colors.purple[600];
 
 
+//rand other stuff
+int clearCount = 0;
 
 //  Shadows used
 /*
