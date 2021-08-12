@@ -134,11 +134,14 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                                 fontSize: 30),
                                           ),
                                         ),
-                                        onTap: (){
+                                        onTap: () {
                                           setState(() {
-                                            CurEqu += CurAns;
+                                            if(CurEqu.split(' ').last.split('d').last.length + CurAns.length < 5)
+                                              {
+                                                CurEqu += CurAns;
+                                              }
                                           });
-                                        },
+                                        }
                                       ),
                                     ),
                                   ],
@@ -402,8 +405,8 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
 
     if(place == globals.CurrInst)
       {
-        //_widthFactor = 1;
-        //_heightFactor = 0.9;
+        _widthFactor = 1;
+        _heightFactor = 0.9;
         selColor = globals.Secondary;
       }
 
@@ -423,18 +426,20 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                 OldAns = globals.Inst_OldAns[place];
 
 
-                //_widthFactor = 1;
-                //_heightFactor = 0.9;
+                _widthFactor = 1;
+                _heightFactor = 0.9;
                 selColor = globals.Secondary;
                 globals.CurrInst = place;
               });
             },
             child: FractionallySizedBox(
-              widthFactor: _widthFactor,
-              heightFactor: _heightFactor,
+              widthFactor: 0.9,
+              heightFactor: 0.8,
               alignment: Alignment.centerRight,
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 300),
+                height: MediaQuery.of(context).size.width * 0.01,
+                width: MediaQuery.of(context).size.width * 0.01,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.bottomLeft,
@@ -442,6 +447,9 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                     colors: [
                       globals.Primary,
                       globals.Primary,
+
+
+
                       selColor,
                     ],
                   ),
@@ -477,6 +485,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
     return GestureDetector(
       onTap: () {
         setState(() {
+          globals.clearCount = 0;
           CurEqu = OldEqu[index];
           CurAns = Equ_Solver(CurEqu).toString();
           OldAns.insert(0, CurAns);
@@ -543,7 +552,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
           ),
           child: Center(
             child: Text(
-              Action == 'd' ?  'D' : Action,
+              Action == 'd' ?  'D' : (Action == 'C' && globals.clearCount == 1 && CurAns.isNotEmpty) ? 'AC' : Action,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           ),

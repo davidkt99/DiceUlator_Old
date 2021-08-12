@@ -1,10 +1,17 @@
-import 'package:flutter/material.dart';
-import 'Data/Database.dart';
-import 'package:flutter/services.dart' ;
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:flutter/services.dart' ;
+import 'Data/Database.dart';
 import 'Pages/Dice_Calc_Page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //  DataBase
+  //StartDatabase();                    SQLite
+  DataBaseInit();
+  Printbox(box);
 
   runApp(MyApp());
 }
@@ -12,8 +19,6 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //  DataBase
-    StartDatabase();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

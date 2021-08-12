@@ -15,6 +15,8 @@ List<String> Inst_CurAns = ['','','','','','','','','','',];
 List<String> Inst_CurRolls = ['','','','','','','','','','',];
 
 
+//DATABASE box name
+String box_name = 'diceulator_data';
 
 
 //  Colors
