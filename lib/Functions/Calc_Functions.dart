@@ -23,9 +23,9 @@ int Equ_Solver(String Equ){
         {
           working[i] = '1'+working[i];
         }
-      print("working[" + i.toString() + "]: " + working[i]);
+     // print("working[" + i.toString() + "]: " + working[i]);
       calc_str = working[i].split('d');
-      print(calc_str);
+     // print(calc_str);
       for(int j = 0;j < int.parse(calc_str[0]);j++)
       {
         to_add += Dice_Randomizer(int.parse(calc_str[1])).toString();
@@ -38,8 +38,8 @@ int Equ_Solver(String Equ){
     }
     sol_equ += working[i];
   }
-  print("equ: " + Equ);
-  print("sol_equ: " + sol_equ);
+  // print("equ: " + Equ);
+  // print("sol_equ: " + sol_equ);
 
   globals.CurRolls = sol_equ;
   globals.OldRolls.insert(0, sol_equ);

@@ -5,13 +5,14 @@ import 'package:hive/hive.dart';
 import 'package:flutter/services.dart' ;
 import 'Data/Database.dart';
 import 'Pages/Dice_Calc_Page.dart';
+import 'Data/globals.dart' as globals;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //  DataBase
   //StartDatabase();                    SQLite
-  DataBaseInit();
-  Printbox(box);
+  await DataBaseInit();
+  Printbox(globals.box);
 
   runApp(MyApp());
 }
@@ -30,4 +31,6 @@ class MyApp extends StatelessWidget {
       home: Dice_Calc_Page(),
     );
   }
+
+
 }

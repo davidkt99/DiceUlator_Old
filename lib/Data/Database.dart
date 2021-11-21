@@ -31,29 +31,23 @@ await db.execute(
 });
 */
 
+import 'package:dicecalc_diceulator/Data/Dice_Calc_Data.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'globals.dart';
+import 'globals.dart' as globals;
 import 'dart:io';
 
-/*
-//Starts db
-  box = Hive.openBox(box_name);
-  */
-
-
-// init of box variable
-var box;
 
 //    All the startup for the Hive Database
-void DataBaseInit() async {
+Future<void> DataBaseInit() async {
   //        Gets Documents Directory
   final dir = await getApplicationSupportDirectory();
 
   //        Inits Hive db
   Hive.init(dir.path);
+  Hive.registerAdapter(DiceCalcDataAdapter());
 //Starts db
-  box = Hive.openBox(box_name);
+  globals.box = await Hive.openBox(globals.box_name);
 }
 
 //Test Print function

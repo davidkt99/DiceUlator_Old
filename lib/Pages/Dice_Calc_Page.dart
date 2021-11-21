@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:dicecalc_diceulator/Functions/Calc_Functions.dart';
 import 'package:dicecalc_diceulator/Data/globals.dart' as globals;
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
+import 'package:dicecalc_diceulator/Data/Database.dart';
+import 'package:dicecalc_diceulator/Data/Dice_Calc_Data.dart';
+import 'package:hive/hive.dart';
 
 class Dice_Calc_Page extends StatefulWidget {
   Dice_Calc_Page({Key key}) : super(key: key);
@@ -21,9 +24,31 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
   final _controller2 = ScrollController();
 
   @override
+  void dispose(){
+    Hive.box(globals.box_name).close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: globals.BackGround,
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          // var data = Dice_Calc_Data('hello',69);
+          // globals.box.put('stuff', data);
+          // Printbox(globals.box);
+          // print(data.age);
+
+
+
+          var get_data = globals.box.get('stuff');
+          print(get_data.name);
+
+          get_data.name = 'no';
+          get_data.save();
+        },
+      ),
       body: SafeArea(
         child: SizedBox.expand(
           child: Container(
@@ -397,7 +422,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
     );
   }
 
-  //Instance Button                 String for display limited to 5 char
+  ///     Instance Button                 String for display limited to 5 char
   Widget Inst_Button(int place, var display) {
     var _widthFactor = 0.9;
     var _heightFactor = 0.8;
@@ -527,7 +552,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
   }
 
 
-  //                                                      Calculator Keys
+  ///                                                      Calculator Keys
   Widget Calc_Key(String Action) {
     Color BorderColor = Colors.green;//globals.Primary;
 
@@ -623,7 +648,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
               globals.clearCount = 0;
             }
           globals.Inst_CurEqu[globals.CurrInst] = CurEqu;
-          print(CurEqu);
+          //print(CurEqu);
         },
         /*onTapUp: (TapUpDetails tapUpDetails){
           BorderColor = globals.Primary;

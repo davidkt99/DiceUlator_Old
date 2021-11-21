@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// Database Variables
+// init of box variable
+var box;
+
+//DATABASE box name
+String box_name = 'diceulator_data';
+
 int CurrInst = 0;
 
 int OldListSize = 25;
@@ -13,11 +20,6 @@ List<List<String>> Inst_OldEqu = [[],[],[],[],[],[],[],[],[],[]];
 List<String> Inst_CurEqu = ['','','','','','','','','','',];
 List<String> Inst_CurAns = ['','','','','','','','','','',];
 List<String> Inst_CurRolls = ['','','','','','','','','','',];
-
-
-//DATABASE box name
-String box_name = 'diceulator_data';
-
 
 //  Colors
 

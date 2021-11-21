@@ -1,0 +1,5 @@
+App Icon
+-Calculator with buttons like apples
+    -buttons are different dice
+    -number on calc is 20
+    -number on calc is D20
