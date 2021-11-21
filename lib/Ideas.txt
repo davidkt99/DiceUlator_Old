@@ -1,5 +1,36 @@
 App Icon
--Calculator with buttons like apples
-    -buttons are different dice
-    -number on calc is 20
-    -number on calc is D20
+    -Calculator with buttons like apples
+        -buttons are different dice
+        -number on calc is 20
+        -number on calc is D20
+    -Maybe Dragons somewhere?
+    -Colors
+        -Purple
+        -Black
+        -White?
+        -Red for dnd
+
+
+remove duplicate data on screen
+   make past rolls top one be the most recent roll and make it bigger
+
+move instance buttons to just above calc buttons
+   make instance a pagination?
+
+add background to the calc buttons section and add more padding, keep size of buttons similar
+
+
+
+
+Pages
+    -Add ability to have multiple pages of base app
+    -Have it be a dollar for more than 1 page
+
+Ads
+    -Maybe ads you can watch to get currency to by customization?
+        -Have some functionality cost a very small amount of said currency
+            -1 special roll will be 1 point when watching an add would give you 100
+        -Option for passive point gen with ad banners
+
+Feedback
+    -option to send a separate gmail an email in app for feedback
