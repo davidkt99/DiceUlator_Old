@@ -17,19 +17,16 @@ class DiceCalcDataAdapter extends TypeAdapter<Dice_Calc_Data> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Dice_Calc_Data(
-      fields[0] as String,
-      fields[1] as int,
+      (fields[0] as List)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Dice_Calc_Data obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.age);
+      ..writeByte(0)
+      ..write(obj.OldRolls);
   }
 
   @override

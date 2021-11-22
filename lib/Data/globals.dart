@@ -11,15 +11,15 @@ int CurrInst = 0;
 
 int OldListSize = 25;
 
-List<String> OldRolls = [];
+List OldRolls = [];
 String CurRolls = '';
 
-List<List<String>> Inst_OldRolls = [[],[],[],[],[],[],[],[],[],[]];
-List<List<String>> Inst_OldAns = [[],[],[],[],[],[],[],[],[],[]];
-List<List<String>> Inst_OldEqu = [[],[],[],[],[],[],[],[],[],[]];
-List<String> Inst_CurEqu = ['','','','','','','','','','',];
-List<String> Inst_CurAns = ['','','','','','','','','','',];
-List<String> Inst_CurRolls = ['','','','','','','','','','',];
+List<List> Inst_OldRolls = [[],[],[],[],[],[],[],[],[],[]];
+List<List> Inst_OldAns = [[],[],[],[],[],[],[],[],[],[]];
+List<List> Inst_OldEqu = [[],[],[],[],[],[],[],[],[],[]];
+List Inst_CurEqu = ['','','','','','','','','','',];
+List Inst_CurAns = ['','','','','','','','','','',];
+List Inst_CurRolls = ['','','','','','','','','','',];
 
 //  Colors
 

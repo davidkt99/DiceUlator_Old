@@ -23,6 +23,10 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
   final _controller1 = ScrollController();
   final _controller2 = ScrollController();
 
+
+
+
+
   @override
   void dispose(){
     Hive.box(globals.box_name).close();
@@ -31,24 +35,47 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
 
   @override
   Widget build(BuildContext context) {
+    // var data = Dice_Calc_Data(globals.Inst_OldRolls,globals.Inst_OldAns,globals.Inst_OldEqu,globals.Inst_CurEqu,globals.Inst_CurAns,globals.Inst_CurRolls);
+    // if(globals.box.get('0') == null)
+    //   {
+    //     globals.box.put('0', data);
+    //   }else
+    //     {
+    //       data = globals.box.get('0');
+    //       globals.Inst_OldRolls = data.Inst_OldRolls;
+    //       globals.Inst_OldAns = data.Inst_OldAns;
+    //       globals.Inst_OldEqu = data.Inst_OldEqu;
+    //       globals.Inst_CurEqu = data.Inst_CurEqu;
+    //       globals.Inst_CurAns = data.Inst_CurAns;
+    //       globals.Inst_CurRolls = data.Inst_CurRolls;
+    //     }
+    var data = Dice_Calc_Data(globals.OldRolls);
+    if(globals.box.get('0') == null)
+      {
+        globals.box.put('0', data);
+      }else{
+      print(globals.box.get('0'));
+    }
+
+
     return Scaffold(
       backgroundColor: globals.BackGround,
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          // var data = Dice_Calc_Data('hello',69);
-          // globals.box.put('stuff', data);
-          // Printbox(globals.box);
-          // print(data.age);
-
-
-
-          var get_data = globals.box.get('stuff');
-          print(get_data.name);
-
-          get_data.name = 'no';
-          get_data.save();
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: (){
+      //     // var data = Dice_Calc_Data('hello',69);
+      //     // globals.box.put('stuff', data);
+      //     // Printbox(globals.box);
+      //     // print(data.age);
+      //
+      //
+      //
+      //     var get_data = globals.box.get('stuff');
+      //     print(get_data.name);
+      //
+      //     get_data.name = 'no';
+      //     get_data.save();
+      //   },
+      // ),
       body: SafeArea(
         child: SizedBox.expand(
           child: Container(
@@ -337,7 +364,11 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                             ),
                                           ),
                                           onTap: (){
+                                            /// Save data to local storage
+                                            // data = Dice_Calc_Data(globals.Inst_OldRolls,globals.Inst_OldAns,globals.Inst_OldEqu,globals.Inst_CurEqu,globals.Inst_CurAns,globals.Inst_CurRolls);
+                                            // globals.box.put('0', data);
 
+                                            /// Calc button functionality
                                             if (CurEqu.endsWith(' ') || CurEqu.endsWith('d') || CurEqu.isEmpty) {
                                               // Do Nothing
                                             } else {
