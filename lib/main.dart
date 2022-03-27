@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       title: 'Diculator',
       theme: ThemeData.dark().copyWith(
       ),
-      home: Dice_Calc_Page(),
+      home: DiceCalcPage(),
     );
   }
 

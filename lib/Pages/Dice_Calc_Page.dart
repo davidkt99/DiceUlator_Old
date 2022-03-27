@@ -3,22 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:dicecalc_diceulator/Functions/Calc_Functions.dart';
 import 'package:dicecalc_diceulator/Data/globals.dart' as globals;
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
-import 'package:dicecalc_diceulator/Data/Database.dart';
 import 'package:dicecalc_diceulator/Data/Dice_Calc_Data.dart';
 import 'package:hive/hive.dart';
 
-class Dice_Calc_Page extends StatefulWidget {
-  Dice_Calc_Page({Key key}) : super(key: key);
+class DiceCalcPage extends StatefulWidget {
+  DiceCalcPage({Key key}) : super(key: key);
 
   @override
-  _Dice_Calc_PageState createState() => _Dice_Calc_PageState();
+  _DiceCalcPageState createState() => _DiceCalcPageState();
 }
 
-class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
-  String CurEqu = '';
-  List<String> OldEqu = [];
-  String CurAns = '';
-  List<String> OldAns = [];
+class _DiceCalcPageState extends State<DiceCalcPage> {
+  String curEqu = '';
+  List<String> oldEqu = [];
+  String curAns = '';
+  List<String> oldAns = [];
 
   final _controller1 = ScrollController();
   final _controller2 = ScrollController();
@@ -125,9 +124,9 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                   child: FadingEdgeScrollView.fromScrollView(
                                     child: ListView.builder(
                                       controller: _controller1,
-                                      itemCount: OldAns.length,
+                                      itemCount: oldAns.length,
                                       itemBuilder: (BuildContext context, int index) {
-                                        return PastRolls_Card(index);
+                                        return PastRollsCard(index);
                                       },
                                     ),
                                   ),
@@ -180,7 +179,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                                   0.02),
                                           alignment: Alignment.bottomRight,
                                           child: Text(
-                                            CurAns,
+                                            curAns,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 30),
@@ -188,9 +187,9 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                         ),
                                         onTap: () {
                                           setState(() {
-                                            if(CurEqu.split(' ').last.split('d').last.length + CurAns.length < 5)
+                                            if(curEqu.split(' ').last.split('d').last.length + curAns.length < 5)
                                               {
-                                                CurEqu += CurAns;
+                                                curEqu += curAns;
                                               }
                                           });
                                         }
@@ -216,7 +215,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                       MediaQuery.of(context).size.width * 0.02),
                               alignment: Alignment.bottomRight,
                               child: Text(
-                                CurEqu,
+                                curEqu,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 30),
                               ),
@@ -241,22 +240,22 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                   flex: 1,
                                   child: Row(
                                     children: <Widget>[
-                                      Calc_Key('7'),
+                                      CalcKey('7'),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width *
                                             0.02,
                                       ),
-                                      Calc_Key('8'),
+                                      CalcKey('8'),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width *
                                             0.02,
                                       ),
-                                      Calc_Key('9'),
+                                      CalcKey('9'),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width *
                                             0.02,
                                       ),
-                                      Calc_Key('C'),
+                                      CalcKey('C'),
                                     ],
                                   ),
                                 ),
@@ -268,22 +267,22 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                   flex: 1,
                                   child: Row(
                                     children: <Widget>[
-                                      Calc_Key('4'),
+                                      CalcKey('4'),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width *
                                             0.02,
                                       ),
-                                      Calc_Key('5'),
+                                      CalcKey('5'),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width *
                                             0.02,
                                       ),
-                                      Calc_Key('6'),
+                                      CalcKey('6'),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width *
                                             0.02,
                                       ),
-                                      Calc_Key('-'),
+                                      CalcKey('-'),
                                     ],
                                   ),
                                 ),
@@ -295,22 +294,22 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                   flex: 1,
                                   child: Row(
                                     children: <Widget>[
-                                      Calc_Key('1'),
+                                      CalcKey('1'),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width *
                                             0.02,
                                       ),
-                                      Calc_Key('2'),
+                                      CalcKey('2'),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width *
                                             0.02,
                                       ),
-                                      Calc_Key('3'),
+                                      CalcKey('3'),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width *
                                             0.02,
                                       ),
-                                      Calc_Key('+'),
+                                      CalcKey('+'),
                                     ],
                                   ),
                                 ),
@@ -322,12 +321,12 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                   flex: 1,
                                   child: Row(
                                     children: <Widget>[
-                                      Calc_Key('0'),
+                                      CalcKey('0'),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width *
                                             0.02,
                                       ),
-                                      Calc_Key('d'),
+                                      CalcKey('d'),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width *
                                             0.02,
@@ -369,38 +368,38 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
                                             // globals.box.put('0', data);
 
                                             /// Calc button functionality
-                                            if (CurEqu.endsWith(' ') || CurEqu.endsWith('d') || CurEqu.isEmpty) {
+                                            if (curEqu.endsWith(' ') || curEqu.endsWith('d') || curEqu.isEmpty) {
                                               // Do Nothing
                                             } else {
                                               //                                Sets Current Equation stuff and updates 'old' lists
                                               setState(() {
-                                                CurAns =
-                                                    Equ_Solver(CurEqu).toString();
-                                                OldAns.insert(0, CurAns);
-                                                if (OldAns.length >
+                                                curAns =
+                                                    Equ_Solver(curEqu).toString();
+                                                oldAns.insert(0, curAns);
+                                                if (oldAns.length >
                                                     globals.OldListSize) {
-                                                  OldAns.removeLast();
+                                                  oldAns.removeLast();
                                                 }
-                                                OldEqu.insert(0, CurEqu);
-                                                if (OldEqu.length >
+                                                oldEqu.insert(0, curEqu);
+                                                if (oldEqu.length >
                                                     globals.OldListSize) {
-                                                  OldEqu.removeLast();
+                                                  oldEqu.removeLast();
                                                 }
 
                                                 //Setting Instance Info
                                                 globals.Inst_CurEqu[
-                                                globals.CurrInst] = CurEqu;
+                                                globals.CurrInst] = curEqu;
                                                 globals.Inst_CurAns[
-                                                globals.CurrInst] = CurAns;
+                                                globals.CurrInst] = curAns;
                                                 globals.Inst_CurRolls[globals
                                                     .CurrInst] = globals.CurRolls;
 
                                                 globals.Inst_OldRolls[globals
                                                     .CurrInst] = globals.OldRolls;
                                                 globals.Inst_OldEqu[
-                                                globals.CurrInst] = OldEqu;
+                                                globals.CurrInst] = oldEqu;
                                                 globals.Inst_OldAns[
-                                                globals.CurrInst] = OldAns;
+                                                globals.CurrInst] = oldAns;
 
                                                 //print('${OldEqu}');
                                                 //print('${globals.OldRolls}');
@@ -474,12 +473,12 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
             onTap: () {
               setState(() {
                 // Set Cur and Old variables to Inst_Curr and Inst_Old Variables based on 'place'
-                CurEqu = globals.Inst_CurEqu[place];
-                CurAns = globals.Inst_CurAns[place];
+                curEqu = globals.Inst_CurEqu[place];
+                curAns = globals.Inst_CurAns[place];
                 globals.CurRolls = globals.Inst_CurRolls[place];
                 globals.OldRolls = globals.Inst_OldRolls[place];
-                OldEqu = globals.Inst_OldEqu[place];
-                OldAns = globals.Inst_OldAns[place];
+                oldEqu = globals.Inst_OldEqu[place];
+                oldAns = globals.Inst_OldAns[place];
 
 
                 _widthFactor = 1;
@@ -537,20 +536,20 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
   }
 
 //                                                  //PastRolls Card
-  Widget PastRolls_Card(int index) {
+  Widget PastRollsCard(int index) {
     return GestureDetector(
       onTap: () {
         setState(() {
           globals.clearCount = 0;
-          CurEqu = OldEqu[index];
-          CurAns = Equ_Solver(CurEqu).toString();
-          OldAns.insert(0, CurAns);
-          if (OldAns.length > globals.OldListSize) {
-            OldAns.removeLast();
+          curEqu = oldEqu[index];
+          curAns = Equ_Solver(curEqu).toString();
+          oldAns.insert(0, curAns);
+          if (oldAns.length > globals.OldListSize) {
+            oldAns.removeLast();
           }
-          OldEqu.insert(0, CurEqu);
-          if (OldEqu.length > globals.OldListSize) {
-            OldEqu.removeLast();
+          oldEqu.insert(0, curEqu);
+          if (oldEqu.length > globals.OldListSize) {
+            oldEqu.removeLast();
           }
           //print('${OldEqu}');
           //print('${globals.OldRolls}');
@@ -565,7 +564,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              OldEqu[index],
+              oldEqu[index],
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Text(
@@ -573,7 +572,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Text(
-              "${OldAns[index]}",
+              "${oldAns[index]}",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
@@ -584,7 +583,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
 
 
   ///                                                      Calculator Keys
-  Widget Calc_Key(String Action) {
+  Widget CalcKey(String Action) {
     Color BorderColor = Colors.green;//globals.Primary;
 
 
@@ -608,7 +607,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
           ),
           child: Center(
             child: Text(
-              Action == 'd' ?  'D' : (Action == 'C' && globals.clearCount == 1 && CurAns.isNotEmpty) ? 'AC' : Action,
+              Action == 'd' ?  'D' : (Action == 'C' && globals.clearCount == 1 && curAns.isNotEmpty) ? 'AC' : Action,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           ),
@@ -618,11 +617,11 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
           if (Action == 'C') {
             setState(() {
               globals.clearCount++;
-              CurEqu = '';
+              curEqu = '';
               globals.Inst_CurEqu[globals.CurrInst] = '';
               if(globals.clearCount > 1)
                 {
-                  CurAns = '';
+                  curAns = '';
                   globals.CurRolls = '';
                   globals.Inst_CurAns[globals.CurrInst] = '';
                   globals.Inst_CurRolls[globals.CurrInst] = '';
@@ -632,11 +631,11 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
             });
             //                     Process Current Equation
           } else if (Action == '=') {
-            if (CurEqu.endsWith(' ') || CurEqu.endsWith('d')) {
+            if (curEqu.endsWith(' ') || curEqu.endsWith('d')) {
               // Do Nothing
             } else {
               setState(() {
-                CurAns = Equ_Solver(CurEqu).toString();
+                curAns = Equ_Solver(curEqu).toString();
               });
             }
 
@@ -644,30 +643,30 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
           } else {
             setState(() {
               if (Action == '+') {
-                if (CurEqu.endsWith(' ') || CurEqu.endsWith('d') || CurEqu.isEmpty) {
+                if (curEqu.endsWith(' ') || curEqu.endsWith('d') || curEqu.isEmpty) {
                   //DO Nothing
                 } else {
-                  CurEqu = CurEqu + ' + ';
+                  curEqu = curEqu + ' + ';
                 }
               } else if (Action == '-') {
-                if (CurEqu.endsWith(' ') || CurEqu.endsWith('d') || CurEqu.isEmpty) {
+                if (curEqu.endsWith(' ') || curEqu.endsWith('d') || curEqu.isEmpty) {
                   //DO Nothing
                 } else {
-                  CurEqu = CurEqu + ' - ';
+                  curEqu = curEqu + ' - ';
                 }
               } else if (Action == 'd' &&
-                  (CurEqu.endsWith('d') ||
-                      CurEqu.split(' ').last.contains('d'))) {
+                  (curEqu.endsWith('d') ||
+                      curEqu.split(' ').last.contains('d'))) {
                 //Do Nothing
               } else {
-                if (CurEqu.split(' ').last.split('d').last.length > 3 &&
+                if (curEqu.split(' ').last.split('d').last.length > 3 &&
                     Action != 'd') {
                   // DO Nothing
                 } else {
-                  if (CurEqu.endsWith('d') && Action == '0') {
+                  if (curEqu.endsWith('d') && Action == '0') {
                     // DO Nothing
                   } else {
-                    CurEqu = CurEqu + Action;
+                    curEqu = curEqu + Action;
                   }
                 }
               }
@@ -678,7 +677,7 @@ class _Dice_Calc_PageState extends State<Dice_Calc_Page> {
             {
               globals.clearCount = 0;
             }
-          globals.Inst_CurEqu[globals.CurrInst] = CurEqu;
+          globals.Inst_CurEqu[globals.CurrInst] = curEqu;
           //print(CurEqu);
         },
         /*onTapUp: (TapUpDetails tapUpDetails){
